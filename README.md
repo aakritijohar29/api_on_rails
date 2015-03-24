@@ -1,4 +1,5 @@
-== Market API
+Market API
+==========
 
 A simple online market API built with Rails.
 
