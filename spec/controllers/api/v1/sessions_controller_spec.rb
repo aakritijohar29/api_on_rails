@@ -38,8 +38,18 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       it { should respond_with 422 }
 
     end
-
-
   end
+
+  describe "DELETE #destroy" do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      sign_in @user
+      delete :destroy, {id: @user.auth_token}
+    end
+
+    it { should respond_with 204 }
+  end
+
 
 end
