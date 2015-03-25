@@ -3,7 +3,7 @@ require 'spec_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
 
-  before(:each) { request.headers['Accept'] = "application/vnd.marketplace.v1" }
+  before(:each) { request.headers['Accept'] = "application/vnd.marketapi.v1" }
 
   describe "GET #show" do
     # As a developer using RSpec
@@ -16,8 +16,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     it "returns the information about a reporter on a hash" do
-      user_response = JSON.parse(response.body, symbolize_name: true)
-      expect(user_response['email']).to eql @user.email
+      user_response = json_response
+      expect(user_response[:email]).to eql @user.email
     end
 
     #GET requests generally return 200 code (The request has succeeded)
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it "renders the JSON representation for the user record just created" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response['email']).to eql @user_attibutes['email']
       end
 
@@ -52,12 +52,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it "renders an json error" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response).to have_key(:errors)
       end
 
       it "renders the JSON error explaning why the user could not be created" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response[:errors][:email]).to include "can't be blank"
       end
 
@@ -77,7 +77,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it "renders the JSON representation for the updated User" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response[:email]).to eql "newemail@example.com"
       end
 
@@ -93,12 +93,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it "renders and JSON error" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response).to have_key(:errors)
       end
 
       it "renders the JSON error explaning why the user could not be updated" do
-        user_response = JSON.parse(response.body, symbolize_names: true)
+        user_response = json_response
         expect(user_response[:errors][:email]).to include "is invalid"
       end
 
