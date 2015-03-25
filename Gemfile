@@ -28,6 +28,14 @@ gem 'active_model_serializers'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'ffaker'
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+end 
+
 group :development, :test do
   #MySQL gem
   gem 'mysql2'
