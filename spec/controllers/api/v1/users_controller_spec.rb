@@ -4,8 +4,8 @@ require 'spec_helper'
 RSpec.describe Api::V1::UsersController, type: :controller do
 
   #Concatenate the JSON format inside the header
-  before(:each) { request.headers['Accept'] = "application/vnd.marketapi.v1, #{Mime::JSON}" }
-  before(:each) { request.headers['Content-Type'] = Mime::JSON.to_s }
+  #before(:each) { request.headers['Accept'] = "application/vnd.marketapi.v1, #{Mime::JSON}" }
+  #before(:each) { request.headers['Content-Type'] = Mime::JSON.to_s }
 
   describe "GET #show" do
     # As a developer using RSpec
