@@ -36,6 +36,8 @@ group :test do
   gem 'ffaker'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  #Improve unit tests
+  gem 'shoulda-matchers'
 end 
 
 group :development, :test do
