@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       #List our resources here
       resources :users, :only => [:index, :show, :create, :update, :destroy] do
-        resources :products, :only => [:create]
+        #endpoint: api.something.com/users/[user_id]/products - verb: POST
+        #endpoint: api.something.com/users/{user_id}/products/{product_id} - verb: PUT/PATCH
+        resources :products, :only => [:create, :update]
       end
       resources :sessions, :only => [:create, :destroy]
       resources :products, :only => [:index, :show]
