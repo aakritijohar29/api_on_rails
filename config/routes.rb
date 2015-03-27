@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       #List our resources here
       resources :users, :only => [:index, :show, :create, :update, :destroy]
       resources :sessions, :only => [:create, :destroy]
+      resources :products, :only => [:index, :show]
     end
 
   end
