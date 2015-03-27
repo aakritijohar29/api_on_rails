@@ -1,6 +1,6 @@
 class Api::V1::ProductsController < ApplicationController
 
-  before_action :authenticate_with_token!, only: [:create, :update]
+  before_action :authenticate_with_token!, only: [:create, :update, :destroy]
 
   def index
     respond_with Product.all
@@ -27,6 +27,15 @@ class Api::V1::ProductsController < ApplicationController
       else
         render json: { errors: product.errors }, status: 422
       end
+    else
+      render json: { errors: "product not found" }, status: 422
+    end
+  end
+
+  def destroy
+    product = current_user.products.find_by(id: params[:id])
+    if product
+      head 204
     else
       render json: { errors: "product not found" }, status: 422
     end
