@@ -30,10 +30,13 @@ gem 'devise'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :test do
-  gem 'rspec-rails'
+group :test, :development do
   gem 'factory_girl_rails'
   gem 'ffaker'
+end
+
+group :test do
+  gem 'rspec-rails'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
   #Improve unit tests
