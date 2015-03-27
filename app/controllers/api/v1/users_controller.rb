@@ -7,7 +7,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    respond_with User.find(params[:id])
+    user = User.find_by(id: params[:id])
+    if user
+      respond_with user
+    else
+      render json: { errors: 'record not found' }, status: 422
+    end
   end
 
   def create
