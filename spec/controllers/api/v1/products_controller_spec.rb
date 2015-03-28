@@ -10,7 +10,8 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
     it "returns the information about a product on a hash" do
       #json_response function was defined in the Request::JsonHelpers module (support foulder)
-      product_response = json_response
+      #puts json_response
+      product_response = json_response[:product]
       expect(product_response[:title]).to eql @product.title
     end
 
@@ -44,7 +45,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
       end
 
       it "renders the json representation for the product record just created" do
-        product_response = json_response
+        product_response = json_response[:product]
         expect(product_response[:title]).to eql @product_attributes[:title]
       end
 
@@ -87,7 +88,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
       end
 
       it "renders the JSON representation for the updated product" do
-        product_response = json_response
+        product_response = json_response[:product]
         expect(product_response[:title]).to eql "Tesla Model X 2015"
       end
 

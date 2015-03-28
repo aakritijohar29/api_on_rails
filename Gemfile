@@ -16,10 +16,10 @@ gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-#Api Gems
-gem 'active_model_serializers'
-
 gem 'devise'
+
+#JSON Serializer
+gem "active_model_serializers", '0.9.3'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
