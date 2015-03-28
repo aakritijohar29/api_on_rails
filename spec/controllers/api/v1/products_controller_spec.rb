@@ -15,6 +15,11 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
       expect(product_response[:title]).to eql @product.title
     end
 
+    it "has the user as a embeded object" do
+      product_response = json_response[:product]
+      expect(product_response[:user][:email]).to eql @product.user.email
+    end
+
     it { should respond_with 200 }
   end
 
@@ -30,6 +35,13 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
       # and have_at_most(x).items were extracted into the rspec-collection-matchers gem
       #link: http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/
       expect(products_response[:products].size).to eql 4
+    end
+
+    it "returns the user object into each product" do
+      products_response = json_response[:products]
+      products_response.each do |product_response|
+        expect(product_response[:user]).to be_present
+      end
     end
 
     it { should respond_with 200 }
