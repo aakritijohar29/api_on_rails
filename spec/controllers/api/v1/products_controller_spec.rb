@@ -10,7 +10,6 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
     it "returns the information about a product on a hash" do
       #json_response function was defined in the Request::JsonHelpers module (support foulder)
-      #puts json_response
       product_response = json_response[:product]
       expect(product_response[:title]).to eql @product.title
     end
@@ -26,25 +25,47 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
   describe "GET #index" do
     before(:each) do
       4.times { FactoryGirl.create :product }
-      get :index
     end
 
-    it "returns 4 records from database" do
-      products_response = json_response
-      # Collection cardinalities matchers have(x).items, have_at_least(x).items,
-      # and have_at_most(x).items were extracted into the rspec-collection-matchers gem
-      #link: http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/
-      expect(products_response[:products].size).to eql 4
-    end
-
-    it "returns the user object into each product" do
-      products_response = json_response[:products]
-      products_response.each do |product_response|
-        expect(product_response[:user]).to be_present
+    context "when is not receiving any product_ids parameter" do
+      before(:each) do
+        get :index
       end
+
+      it "returns 4 records from database" do
+        products_response = json_response
+        # Collection cardinalities matchers have(x).items, have_at_least(x).items,
+        # and have_at_most(x).items were extracted into the rspec-collection-matchers gem
+        #link: http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/
+        expect(products_response[:products].size).to eql 4
+      end
+
+      it "returns the user object into each product" do
+        products_response = json_response[:products]
+        products_response.each do |product_response|
+          expect(product_response[:user]).to be_present
+        end
+      end
+
+      it { should respond_with 200 }
     end
 
-    it { should respond_with 200 }
+    context "when product_ids parameter is sent" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        3.times { FactoryGirl.create :product, user: @user }
+        get :index, product_ids: @user.product_ids
+      end
+
+      it "returns just the products that belong to the user" do
+        products_response = json_response[:products]
+        products_response.each do |product|
+          expect(product[:user][:email]).to eql @user.email
+        end
+      end
+
+    end
+
   end
 
   describe "POST #create" do
