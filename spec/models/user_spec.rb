@@ -23,13 +23,14 @@ RSpec.describe User, type: :model do
   it { should validate_uniqueness_of(:auth_token) }
 
   it { should have_many(:products) }
+  it { should have_many(:orders) }
 
   describe "generate_authentication_token!" do
 
     it "generates a unique token" do
-      #Deprecated
-      #Devise.stub(:friendly_token).and_return("auniquetoken123")
-      
+      # Deprecated
+      # Devise.stub(:friendly_token).and_return("auniquetoken123")
+      # new method bellow
       allow(Devise).to receive(:friendly_token).and_return("auniquetoken123")
       @user.generate_authentication_token!
       expect(@user.auth_token).to eql "auniquetoken123"
