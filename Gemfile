@@ -41,6 +41,8 @@ group :test do
   gem 'sqlite3'
   #Improve unit tests
   gem 'shoulda-matchers'
+  # Mailer tests
+  gem 'email_spec'
 end 
 
 group :development, :test do

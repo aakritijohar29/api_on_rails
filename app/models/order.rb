@@ -10,9 +10,11 @@ class Order < ActiveRecord::Base
 
   def set_total!
     sum = 0
-    self.products.each { |product| 
-      sum += product.price
-    }
+    if self.products.count > 0
+      self.products.each { |product| 
+        sum += product.price
+      }
+    end
     self.total = sum
   end
 
