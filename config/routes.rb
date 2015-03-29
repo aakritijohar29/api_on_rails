@@ -12,7 +12,7 @@ Rails.application.routes.draw do
         #endpoint: api.something.com/users/[user_id]/products - verb: POST
         #endpoint: api.something.com/users/{user_id}/products/{product_id} - verb: PUT/PATCH
         resources :products, :only => [:create, :update, :destroy]
-        resources :orders, :only => [:index]
+        resources :orders, :only => [:index, :show]
       end
       resources :sessions, :only => [:create, :destroy]
       resources :products, :only => [:index, :show]
