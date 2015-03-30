@@ -47,7 +47,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
         end
       end
 
-      #pagination
+      #pagination tests
       it { expect(json_response).to have_key(:meta) }
       it { expect(json_response[:meta]).to have_key(:pagination) }
       it { expect(json_response[:meta][:pagination]).to have_key(:per_page) }
