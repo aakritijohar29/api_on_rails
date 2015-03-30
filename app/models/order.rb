@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
 
   validates :total, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :user_id, presence: true
+  validates_with EnoughProductsValidator
 
   # It does not working
   # before_validation :set_total!
@@ -12,7 +13,7 @@ class Order < ActiveRecord::Base
   def set_total!
     self.total = 0
     self.placements.each do |placement| 
-      self.total += placement.product.price
+      self.total += placement.product.price * placement.quantity
     end
   end
 
