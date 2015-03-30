@@ -23,7 +23,7 @@ class Api::V1::OrdersController < ApplicationController
     order.set_total!
     if order.save
       order.reload # reload the object to display the product objects related
-      OrderMailer.send_confirmation(order).deliver_now
+      OrderMailer.delay.send_confirmation(order)
       render json: order, status: 201, location: [:api, current_user, order]
     else
       render json: { errors: order.errors }, status: 422
